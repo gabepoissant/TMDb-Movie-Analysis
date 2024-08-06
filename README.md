@@ -130,7 +130,8 @@ By starting with December, November and October, I can avoid issues such as inco
 I’ll repeat the same process to convert the weekday column into their proper names.
 
 #### Percentile Columns
-Next, I’d like to create some rankings of our films.
+
+Now, I’d like to create some rankings of our films.
 
 First, I’ll filter our data by descending profit, so our highest profit films are at the top.
 
