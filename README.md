@@ -38,6 +38,7 @@ Because the dataset is comprised of 10,000 of the most popular films at the time
 #### Removing Excessive Columns
 First, I’ll delete the index, original_language, vote_average, vote_count, popularity, overview, production companies and tagline columns, as they are unnecessary to our analysis.
 
+![data_cleaning](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%202.png)
 
 #### Correcting Data Types
 Next, I’ll change all columns to the following data types:
@@ -49,14 +50,18 @@ budget: currency
 revenue: currency
 runtime: number
 
+![correcting](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%203.png)
+
 #### Removing Rows with Incomplete Data
 Seeing a significant amount of 0 values for budget and revenue, I’ll start by cleaning those columns first
 
 Filtering by blank budget values, I find 4 rows to delete.
 
+![blank](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%204.png)
 
 Filtering by budget <$500, I can delete 4,668 rows
 
+![budget](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%205.png)
 
 I repeat this process on the revenue column, deleting all values less than $500.
 
@@ -72,6 +77,7 @@ runtime: none found\
 #### Removing Unnecessary Characters
 Using Find and Replace, I’ll remove the brackets and single quotes from the genres column.
 
+![unnecessary](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%205.png)
 
 Having finished all this, the data is now clean. We are left with 4,670 rows and 6 columns.
 
