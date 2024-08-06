@@ -81,31 +81,37 @@ Using Find and Replace, I’ll remove the brackets and single quotes from the ge
 
 Having finished all this, the data is now clean. We are left with 4,670 rows and 6 columns.
 
+![unnecessary2](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%206.png)
 
 ## Processing
 #### Profit Column
 First, I’ll create a column for profit. This will be calculated by subtracting the budget from revenue.
 
+![profit_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%207.png)
 
 =E2-D2
 #### ROI Column
 Next, I’ll create a new column called ROI. This is revenue divided by budget represented as a percentage. Anything lower than 100% lost money at the box office.
 
+![ROI_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%208.png)
 
 =E2/D2
 #### Release Year Column
 Next, I’ll create a release_year column.
 
+![release_year_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%209.png)
 
 =YEAR(C2)
 #### Release Month Column
 I’ll also create a release_month column.
 
+![release_month_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2010.png)
 
 =MONTH(D2)
 #### Weekday Column
 Finally, I’ll create a weekday column.
 
+![release_weekday_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2011.png)
 
 =WEEKDAY(D2)
 #### Translating Release Year, Month, and Weekday Columns
@@ -113,6 +119,7 @@ I’ll copy these three columns and use Paste special > Values only to remove th
 
 I’ll select the release_month column, and use Find and Replace to replace each number with its corresponding month. [1 = January, 2 = February, 3 = March, …]
 
+![translate_date](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2012.png)
 
 By starting with December, November and October, I can avoid issues such as incorrectly replacing “11” with “JanuaryJanuary”
 I’ll repeat the same process to convert the weekday column into their proper names.
@@ -126,13 +133,16 @@ Next, I’ll create a new column, called profit_ranking, and adding a numerical 
 
 Now, I want to repeat this same process, only instead of ranking by profit, I’ll be ranking by ROI, and naming this column ROI_ranking.
 
+![ROI_ranking](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2013.png)
 
 Now, I’ll create another column called profitable. This column will display “T” if the movie made any money. If not, it will display “F”.
 
+![profitable](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2014.png)
 
 =IF(I2>=0, "T", "F")
 Using the columns we just created, I’ll be able to create a percentile for each row. I want my percentile calculations to only include films that are profitable, so I’ll use the number of “T” values in the profitable column to serve as the denominator. The result is two new columns: profit_percentile and ROI_percentile.
 
+![percentiles](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2015.png)
 
 =M2/COUNTIF(P:P,"T")
 Having finished this, we’re now ready to analyze the data.
@@ -141,6 +151,7 @@ Having finished this, we’re now ready to analyze the data.
 #### Breakdown by Genre
 To start things off, I’d like to create a breakdown of all films by genre. So, I’ll list out each genre and calculate the percentage of films tagged with each genre.
 
+![genre_breakdown](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2016.png)
 
 =COUNTIF(Top_10000_Films_TMDb!F:F, CONCATENATE("*",$A2,"*"))/COUNTIF(Top_10000_Films_TMDb!A:A,"<>")
 This formula is using COUNTIF() to count all rows that contain the genre name (as found column A) and dividing it by the number of columns that contain any value. The CONCATENATE() function is used to add asterisks before and after the genre name, which enables the COUNTIF() function to count rows where the genre name is found anywhere in the string of genres.
@@ -152,9 +163,11 @@ Profitable contains three values: <>, T and F. This will allow the stakeholder t
 
 Genre contains all genres as well as the <> value which will allow stakeholders to view all genres at once. The genres are wrapped in asterisks which seem to be necessary due to formulas we’ll be writing later.
 
+![dashboard_controls](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2017.png)
 
 We’ll need to edit our genre breakdown formula to take these controls into account.
 
+![genre_breakdown_controls](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2018.png)
 
 =COUNTIFS(Top_10000_Films_TMDb!F:F, CONCATENATE("*",$A5,"*"),Top_10000_Films_TMDb!F:F,$B$2,Top_10000_Films_TMDb!P:P,$B$1)/COUNTIFS(Top_10000_Films_TMDb!F:F,$B$2,Top_10000_Films_TMDb!P:P,$B$1))
 This formula uses COUNTIFS() in the numerator and the denominator in order to find a percentage. The criteria that COUNTIFS() is checking is not only checking the genre value as it was before, but also the profitable and genres columns, which ties in the dropdowns to our formula. 
