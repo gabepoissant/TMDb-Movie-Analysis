@@ -1,10 +1,10 @@
 ## Overview
 Using data on the top 10,000 most popular films taken from The Movie Database (themoviedb.org), I will use Google Sheets to identify insights which could help a hypothetical movie studio create a profitable movie.
 
-- Technology: Google Sheets
-- Timeline: 1 week
-- Role: Data Analyst
-- Date Completed: July 2023
+- **Technology**: Google Sheets
+- **Timeline**: 1 week
+- **Role**: Data Analyst
+- **Date Completed**: July 2023
 
 ## The Business Task
 Identify common attributes for the most profitable films.
@@ -36,46 +36,46 @@ Because the dataset is comprised of 10,000 of the most popular films at the time
 
 ## Data Cleaning
 #### Removing Excessive Columns
-First, I’ll delete the index, original_language, vote_average, vote_count, popularity, overview, production companies and tagline columns, as they are unnecessary to our analysis.
+First, I’ll delete the **index, original_language, vote_average, vote_count, popularity, overview, production companies** and **tagline** columns, as they are unnecessary to our analysis.
 
 ![data_cleaning](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%202.png)
 
 #### Correcting Data Types
 Next, I’ll change all columns to the following data types:
 
-- title: plain text
-- release_date: date
-- genres: plain text
-- budget: currency
-- revenue: currency
-- runtime: number
+- **title**: plain text
+- **release_date**: date
+- **genres**: plain text
+- **budget**: currency
+- **revenue**: currency
+- **runtime**: number
 
 ![correcting](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%203.png)
 
 #### Removing Rows with Incomplete Data
-Seeing a significant amount of 0 values for budget and revenue, I’ll start by cleaning those columns first
+Seeing a significant amount of 0 values for **budget** and **revenue**, I’ll start by cleaning those columns first
 
-Filtering by blank budget values, I find 4 rows to delete.
+Filtering by blank **budget** values, I find 4 rows to delete.
 
 ![blank](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%204.png)
 
-Filtering by budget <$500, I can delete 4,668 rows
+Filtering by **budget** <$500, I can delete 4,668 rows
 
 ![budget](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%205.png)
 
-I repeat this process on the revenue column, deleting all values less than $500.
+I repeat this process on the **revenue** column, deleting all values less than $500.
 
 There are 4,670 rows remaining
 
 Next, I’ll check for rows with missing values in any of the following columns:
 
-- title: none found
-- release_date: none found
-- genres: none found
-- runtime: none found
+- **title**: none found
+- **release_date**: none found
+- **genres**: none found
+- **runtime**: none found
 
 #### Removing Unnecessary Characters
-Using Find and Replace, I’ll remove the brackets and single quotes from the genres column.
+Using Find and Replace, I’ll remove the brackets and single quotes from the **genres** column.
 
 ![unnecessary](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%207.png)
 
@@ -85,69 +85,69 @@ Having finished all this, the data is now clean. We are left with 4,670 rows and
 
 ## Processing
 #### Profit Column
-First, I’ll create a column for profit. This will be calculated by subtracting the budget from revenue.
+First, I’ll create a column for **profit**. This will be calculated by subtracting the **budget** from **revenue**.
 
 ![profit_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%209.png)
 
 `=E2-D2`
 
 #### ROI Column
-Next, I’ll create a new column called ROI. This is revenue divided by budget represented as a percentage. Anything lower than 100% lost money at the box office.
+Next, I’ll create a new column called **ROI**. This is revenue divided by budget represented as a percentage. Anything lower than 100% lost money at the box office.
 
 ![ROI_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2010.png)
 
 `=E2/D2`
 
 #### Release Year Column
-Next, I’ll create a release_year column.
+Next, I’ll create a **release_year** column.
 
 ![release_year_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2011.png)
 
 `=YEAR(C2)`
 
 #### Release Month Column
-I’ll also create a release_month column.
+I’ll also create a **release_month** column.
 
 ![release_month_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2012.png)
 
 `=MONTH(D2)`
 
 #### Weekday Column
-Finally, I’ll create a weekday column.
+Finally, I’ll create a **weekday** column.
 
 ![release_weekday_column](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2013.png)
 
 `=WEEKDAY(D2)`
 
 #### Translating Release Year, Month, and Weekday Columns
-I’ll copy these three columns and use Paste special > Values only to remove their dependency on the release_date column.
+I’ll copy these three columns and use Paste special > Values only to remove their dependency on the **release_date** column.
 
-I’ll select the release_month column, and use Find and Replace to replace each number with its corresponding month. [1 = January, 2 = February, 3 = March, …]
+I’ll select the **release_month** column, and use Find and Replace to replace each number with its corresponding month. [1 = January, 2 = February, 3 = March, …]
 
 ![translate_date](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2015.png)
 
 By starting with December, November and October, I can avoid issues such as incorrectly replacing “11” with “JanuaryJanuary”
-I’ll repeat the same process to convert the weekday column into their proper names.
+I’ll repeat the same process to convert the **weekday** column into their proper names.
 
 #### Percentile Columns
 
 Now, I’d like to create some rankings of our films.
 
-First, I’ll filter our data by descending profit, so our highest profit films are at the top.
+First, I’ll filter our data by descending **profit**, so our highest profit films are at the top.
 
-Next, I’ll create a new column, called profit_ranking, and adding a numerical ranking to this column 
+Next, I’ll create a new column, called **profit_ranking**, and adding a numerical ranking to this column 
 
-Now, I want to repeat this same process, only instead of ranking by profit, I’ll be ranking by ROI, and naming this column ROI_ranking.
+Now, I want to repeat this same process, only instead of ranking by **profit**, I’ll be ranking by **ROI**, and naming this column **ROI_ranking**.
 
 ![ROI_ranking](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2017.png)
 
-Now, I’ll create another column called profitable. This column will display “T” if the movie made any money. If not, it will display “F”.
+Now, I’ll create another column called **profitable**. This column will display “T” if the movie made any money. If not, it will display “F”.
 
 ![profitable](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2018.png)
 
 `=IF(I2>=0, "T", "F")`
 
-Using the columns we just created, I’ll be able to create a percentile for each row. I want my percentile calculations to only include films that are profitable, so I’ll use the number of “T” values in the profitable column to serve as the denominator. The result is two new columns: profit_percentile and ROI_percentile.
+Using the columns we just created, I’ll be able to create a percentile for each row. I want my percentile calculations to only include films that are profitable, so I’ll use the number of “T” values in the **profitable** column to serve as the denominator. The result is two new columns: **profit_percentile** and **ROI_percentile**.
 
 ![percentiles](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2019.png)
 
@@ -163,7 +163,7 @@ To start things off, I’d like to create a breakdown of all films by genre. So,
 
 `=COUNTIF(Top_10000_Films_TMDb!F:F, CONCATENATE("*",$A2,"*"))/COUNTIF(Top_10000_Films_TMDb!A:A,"<>")`
 
-This formula is using COUNTIF() to count all rows that contain the genre name (as found column A) and dividing it by the number of columns that contain any value. The CONCATENATE() function is used to add asterisks before and after the genre name, which enables the COUNTIF() function to count rows where the genre name is found anywhere in the string of genres.
+This formula is using `COUNTIF()` to count all rows that contain the genre name (as found column A) and dividing it by the number of columns that contain any value. The `CONCATENATE()` function is used to add asterisks before and after the genre name, which enables the `COUNTIF()` function to count rows where the genre name is found anywhere in the string of genres.
 
 #### Adding Dashboard Controls
 I want to add some functionality to this page. I’ll create two dropdowns: Profitable and Genre.
@@ -180,7 +180,7 @@ We’ll need to edit our genre breakdown formula to take these controls into acc
 
 `=COUNTIFS(Top_10000_Films_TMDb!F:F, CONCATENATE("*",$A5,"*"),Top_10000_Films_TMDb!F:F,$B$2,Top_10000_Films_TMDb!P:P,$B$1)/COUNTIFS(Top_10000_Films_TMDb!F:F,$B$2,Top_10000_Films_TMDb!P:P,$B$1))`
 
-This formula uses COUNTIFS() in the numerator and the denominator in order to find a percentage. The criteria that COUNTIFS() is checking is not only checking the genre value as it was before, but also the profitable and genres columns, which ties in the dropdowns to our formula. 
+This formula uses `COUNTIFS()` in the numerator and the denominator in order to find a percentage. The criteria that `COUNTIFS()` is checking is not only checking the genre value as it was before, but also the **profitable** and **genres** columns, which ties in the dropdowns to our formula. 
 
 #### Film Count
 I’ll create a cell that counts the number of films that fit the criteria
@@ -196,7 +196,7 @@ I’ll now create some at-a-glance information about our selection, including Av
 
 `=AVERAGEIFS(Top_10000_Films_TMDb!I:I,Top_10000_Films_TMDb!$P:$P,$B$1,Top_10000_Films_TMDb!$F:F,$B$2)`
 
-This formula uses AVERAGEIFS() to take the average of a given column provided the conditions match, which in this case are the Profitable and Genre dropdowns. Budget, revenue, profit and runtime can all re-use this formula.
+This formula uses `AVERAGEIFS()` to take the average of a given column provided the conditions match, which in this case are the Profitable and Genre dropdowns. Budget, revenue, profit and runtime can all re-use this formula.
 
 ROI must be calculated by dividing Average Budget by Average Revenue, not by averaging all ROIs in our dataset.
 
@@ -205,7 +205,7 @@ ROI must be calculated by dividing Average Budget by Average Revenue, not by ave
 `=F2/E2`
 
 #### Averages by Genre with Controls
-Now, I’ll be creating these same figures (Average Budget, Revenue, Profit, ROI and Runtime) for each genre. The AVERAGEIFS() function is used again here, only adding an additional criteria which is each genre in the breakdown. Also, IFERROR() is used to replace any DIV/0 errors with “No Data”.
+Now, I’ll be creating these same figures (Average Budget, Revenue, Profit, ROI and Runtime) for each genre. The `AVERAGEIFS()` function is used again here, only adding an additional criteria which is each genre in the breakdown. Also, `IFERROR()` is used to replace any `DIV/0` errors with “No Data”.
 
 ![averages_genre_controls](https://github.com/gabepoissant/TMDb-Movie-Analysis/blob/main/images/Layer%2026.png)
 
@@ -227,9 +227,9 @@ Our formulas are going to look similar to before, only instead of referencing a 
 
 The following criteria/criterion pair is what I’ll use for this. Top_10000_Films_TMDb!$N:$N,CONCATENATE(“<=”,$B$1,”%”)
 
-In this case, the N column is our profit_percentile column and $B$1 is the cell that contains our desired percentile value.
+In this case, the N column is our **profit_percentile** column and $B$1 is the cell that contains our desired percentile value.
 
-CONCATENATE() appends <= and % to our number to make it compatible with our profit_percentile values
+`CONCATENATE()` appends <= and % to our number to make it compatible with our **profit_percentile** values
 
 In context it looks like this:
 
@@ -278,8 +278,8 @@ With that, it’s time to finally draw our conclusions and provide helpful insig
 - Of the films that are most profitable, most are Drama, Comedy, Thriller or Horror 
 
 ## Recommendations
-- If large amounts of funding is available, I recommend creating an adventure film with action elements. Popular films in this style are often fantasy or science fiction. This film should be close to 122 minutes in length, and release sometime in May or June. 
+- If large amounts of funding is available, I recommend creating an **adventure film with action elements**. Popular films in this style are **often fantasy or science fiction**. This film should be close to 122 minutes in length, and release sometime in May or June. 
     - I suggest raising $131M in capital. If the film is a success, you could hope to profit $483M, which is an ROI of 468%
-- If funding is not as easily available, I recommend creating a dramatic film with romantic and comedic elements. This film should be about 119 minutes in length, and release sometime in December or November.
+- If funding is not as easily available, I recommend creating a **dramatic film with romantic and comedic elements**. This film should be about 119 minutes in length, and release sometime in December or November.
     - I suggest raising $14M in capital. If the film is a breakout hit, it is possible to earn profits as high as $150M, which is an ROI of 1229%
-- Another option that could yield high returns is the thriller/horror genre. With an average budget of $13M and average length of 108 minutes, other films have earned an average of $140M, or an average of 1204% ROI. These films are popular in October, September and June.
+- Another option that could yield high returns is the **thriller/horror** genre. With an average budget of $13M and average length of 108 minutes, other films have earned an average of $140M, or an average of 1204% ROI. These films are popular in October, September and June.
