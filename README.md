@@ -6,6 +6,8 @@ Using data on the top 10,000 most popular films taken from The Movie Database (t
 - **Role**: Data Analyst
 - **Date Completed**: July 2023
 
+[See the resulting dashboard here!](https://docs.google.com/spreadsheets/d/1LxXBat5DBeAFpW0df7MiPah5KHfzur9GzY5jL2LAiwU/edit?usp=sharing)
+
 ## The Business Task
 Identify common attributes for the most profitable films.
 
